@@ -16,6 +16,7 @@ class Image{
         $exploded_image_filename = explode(".", $image_filename);
         $extension = end($exploded_image_filename);
 
+
         //make sure its an image
         if (strtolower($extension) == "gif" || strtolower($extension) == "jpg" || strtolower($extension) == "png") {
 
