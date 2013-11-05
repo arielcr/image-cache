@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "Arielcr": "Image.php"
+            "psr-0": {"Arielcr\\": "src/"}
         }
     }
 }
