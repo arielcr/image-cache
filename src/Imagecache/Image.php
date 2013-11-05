@@ -34,6 +34,12 @@ class Image{
 	            chmod(self::$image_path . $image_filename, 0755);
 	            fwrite($local_image_file, $image_to_fetch);
 	            fclose($local_image_file);
+	
+				$image = new SimpleImage(); 	
+				$image->load(self::$image_path . $image_filename); 
+				$image->resizeToWidth(172); 
+				$image->save(self::$image_path . $image_filename); 
+	
 			}
 
         }
