@@ -1,24 +1,5 @@
 {
     "name": "arielcr/image-cache",
-    "description": "Image Cache Class",
-    "keywords": ["image","cache","resize"],
-    "homepage": "https://github.com/arielcr/image-cache",
-    "authors": [
-        {
-            "name": "Ariel Orozco",
-            "email": "bassplayer85@gmail.com",
-            "role": "Developer"
-        }
-    ],
-    "autoload": {
-        "psr-0": {
-            "psr-0": {"Arielcr\\": "src/"}
-        }
-    }
-}
-
-{
-    "name": "arielcr/image-cache",
     "description": "A Simple Image Cache Class",
     "homepage": "https://github.com/arielcr/image-cache",
     "license": "MIT",
