@@ -1,6 +1,6 @@
 <?php
 
-namespace Arielcr;
+namespace Imagecache;
 
 class Image{
 
