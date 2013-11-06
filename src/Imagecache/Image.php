@@ -7,7 +7,7 @@ class Image{
     // Cache directory
     private static $image_path = 'cache/images/';
 
-    public static function cache($image_url)
+    public static function cache($image_url, $width = NULL)
     {
         // Get file name
         $exploded_image_url = explode("/", $image_url);
@@ -18,33 +18,39 @@ class Image{
         // Image validation
         if (strtolower($extension) == "gif" || strtolower($extension) == "jpg" || strtolower($extension) == "png") {
 
-            // Get remote image
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $image_url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $image_to_fetch = curl_exec($ch);
-            curl_close($ch);
+			$cached_image = self::$image_path . $image_filename;
 
 			// Check if image exists
-			if (file_exists(self::$image_path . $image_filename)) {
-				return "YA EXISTE! : " . self::$image_path . $image_filename;
+			if (file_exists($cached_image)) {
+				return $cached_image;
 			} else {
+				
+				// Get remote image
+	            $ch = curl_init();
+	            curl_setopt($ch, CURLOPT_URL, $image_url);
+	            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	            $image_to_fetch = curl_exec($ch);
+	            curl_close($ch);
+				
 				// Save image
-	            $local_image_file = fopen(self::$image_path . $image_filename, 'w+');
-	            chmod(self::$image_path . $image_filename, 0755);
+	            $local_image_file = fopen($cached_image, 'w+');
+	            chmod($cached_image, 0755);
 	            fwrite($local_image_file, $image_to_fetch);
 	            fclose($local_image_file);
-	
-				$image = new SimpleImage(); 	
-				$image->load(self::$image_path . $image_filename); 
-				$image->resizeToWidth(172); 
-				$image->save(self::$image_path . $image_filename); 
-	
+
+				// Resize image
+				if(!is_null($width)){
+					$image = new SimpleImage(); 	
+					$image->load($cached_image); 
+					$image->resizeToWidth($width); 
+					$image->save($cached_image);
+				}
+
 			}
 
         }
 
-        return "NO EXISTE, GUARDADA: " . self::$image_path . $image_filename;
+        return $cached_image;
     }
 
 }
