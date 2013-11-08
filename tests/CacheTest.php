@@ -2,15 +2,25 @@
 
 class CacheTest extends PHPUnit_Framework_TestCase
 {
-    public function testCacheReturnsSavedImage()
+	/**
+     * @param string $imageUrl Image url 
+     * @param string $expectedResult Expected result
+     *
+     * @dataProvider providerTestCacheReturnsSavedImage
+     */
+    public function testCacheReturnsSavedImage($imageUrl, $expectedResult)
     {
-		// Test Cache Class
-        $expected = 'cache/images/test.jpg';
-        $image = \Image\Cache::get('http://www.crecetu.com/web/12172807/fotos/test.jpg');
-
-        $this->assertEquals($expected,$image);
-
+        $image = Image\Cache::get($imageUrl);
+        $this->assertEquals($expectedResult,$image);
     }
+
+	public function providerTestCacheReturnsSavedImage()
+	{
+		return array(
+            array('http://www.crecetu.com/web/12172807/fotos/test.jpg', 'cache/images/test.jpg'),
+            array('', ''),
+        );
+	}
 
 }
 
